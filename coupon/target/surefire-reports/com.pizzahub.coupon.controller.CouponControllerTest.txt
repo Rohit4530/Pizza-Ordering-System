@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.pizzahub.coupon.controller.CouponControllerTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 10, Time elapsed: 1.413 s - in com.pizzahub.coupon.controller.CouponControllerTest

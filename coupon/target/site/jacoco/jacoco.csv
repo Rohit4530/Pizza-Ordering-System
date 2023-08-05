@@ -1,0 +1,7 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+coupon,com.pizzahub.coupon.service.exception,CouponNotFoundException,4,0,0,0,2,0,1,0,1,0
+coupon,com.pizzahub.coupon.service.exception,CoupanExceptionHandler,10,0,0,0,2,0,2,0,2,0
+coupon,com.pizzahub.coupon.service,CouponService,18,70,3,3,3,16,3,9,0,9
+coupon,com.pizzahub.coupon,CouponApplication,8,0,0,0,3,0,2,0,2,0
+coupon,com.pizzahub.coupon.controller,CouponController,0,90,0,0,0,16,0,9,0,9
+coupon,com.pizzahub.coupon.entity,Coupon,18,38,0,0,7,17,1,11,1,11

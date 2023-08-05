@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CouponController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">coupon</a> &gt; <a href="index.source.html" class="el_package">com.pizzahub.coupon.controller</a> &gt; <span class="el_source">CouponController.java</span></div><h1>CouponController.java</h1><pre class="source lang-java linenums">package com.pizzahub.coupon.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import com.pizzahub.coupon.entity.Coupon;
+import com.pizzahub.coupon.service.CouponService;
+
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;)
+@RestController
+<span class="fc" id="L23">public class CouponController {</span>
+	@Autowired
+	private CouponService couponService;
+
+	@GetMapping(&quot;/coupons&quot;)
+	ResponseEntity&lt;List&lt;Coupon&gt;&gt;getallCoupons(){
+<span class="fc" id="L29">			List&lt;Coupon&gt;coupon=couponService.getAll();</span>
+<span class="fc" id="L30">				return new ResponseEntity&lt;List&lt;Coupon&gt;&gt;(coupon,HttpStatus.OK);</span>
+	}
+	
+	@GetMapping(&quot;/coupon/{couponName}&quot;)
+	public ResponseEntity&lt;Coupon&gt; getCouponByName(@PathVariable String couponName){
+		
+<span class="fc" id="L36">			Coupon coupon = couponService.findByCouponName(couponName).get();</span>
+			
+<span class="fc" id="L38">				return new ResponseEntity&lt;Coupon&gt;(coupon, HttpStatus.OK);</span>
+			
+	}
+	
+	@GetMapping(&quot;/coupon/get/{couponId}&quot;)
+	public ResponseEntity&lt;Coupon&gt; getCouponById(@PathVariable Long couponId){
+	
+<span class="fc" id="L45">			Coupon coupon = couponService.findByCouponId(couponId).get();</span>
+			
+<span class="fc" id="L47">				return new ResponseEntity&lt;Coupon&gt;(coupon, HttpStatus.OK);</span>
+			
+	}
+	
+	
+	@PostMapping(&quot;/coupon/add&quot;)
+	public ResponseEntity&lt;Coupon&gt; addCoupon(@RequestBody Coupon coupon){
+		
+<span class="fc" id="L55">					couponService.createCoupon(coupon);</span>
+<span class="fc" id="L56">					return new ResponseEntity&lt;Coupon&gt;(coupon,HttpStatus.CREATED);</span>
+				
+		   }
+		
+	
+	@GetMapping(&quot;/coupon/getApplicable/{orderAmount}&quot;)
+	public ResponseEntity&lt;List&lt;Coupon&gt;&gt; getApplicableCoupons(@PathVariable Long orderAmount){
+<span class="fc" id="L63">			List&lt;Coupon&gt;coupon=couponService.getApplicableCoupons(orderAmount);</span>
+		
+<span class="fc" id="L65">				return new ResponseEntity&lt;List&lt;Coupon&gt;&gt;(coupon,HttpStatus.OK);</span>
+	}
+	
+	@DeleteMapping(&quot;/coupon/delete/{id}&quot;)
+	public ResponseEntity&lt;?&gt;deleteCoupon(@PathVariable(&quot;id&quot;) Long id){
+		
+<span class="fc" id="L71">			couponService.deletebyId(id);</span>
+<span class="fc" id="L72">		return new ResponseEntity&lt;&gt;(HttpStatus.OK);</span>
+	}
+	
+	
+	@PutMapping(&quot;/coupon/update&quot;)
+	public ResponseEntity&lt;Coupon&gt;updateCoupon(@RequestBody Coupon coupon){
+		
+<span class="fc" id="L79">			couponService.updateCoupon(coupon);</span>
+<span class="fc" id="L80">			return new ResponseEntity&lt;&gt;(coupon, HttpStatus.OK);</span>
+		
+	}
+	
+	
+	
+	@GetMapping(&quot;/coupon/applyCoupon/{id}&quot;)
+	public ResponseEntity&lt;Long&gt; applyCoupon(@PathVariable Long id){
+		
+			
+			
+<span class="fc" id="L91">				return new ResponseEntity&lt;Long&gt;(couponService.applyCoupon(id),HttpStatus.OK);</span>
+			
+			
+		
+		
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

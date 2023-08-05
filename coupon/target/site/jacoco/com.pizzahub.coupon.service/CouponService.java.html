@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CouponService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">coupon</a> &gt; <a href="index.source.html" class="el_package">com.pizzahub.coupon.service</a> &gt; <span class="el_source">CouponService.java</span></div><h1>CouponService.java</h1><pre class="source lang-java linenums">package com.pizzahub.coupon.service;
+
+import org.springframework.stereotype.Service;
+
+
+import com.pizzahub.coupon.entity.Coupon;
+import com.pizzahub.coupon.repo.CouponRepo;
+import com.pizzahub.coupon.service.exception.CouponNotFoundException;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+
+@Service
+<span class="fc" id="L17">public class CouponService {</span>
+	
+	@Autowired
+	private CouponRepo couponRepo;
+	
+	
+	
+	private Coupon coupon;
+		
+		public List&lt;Coupon&gt; getAll(){
+<span class="fc" id="L27">			return couponRepo.findAll();</span>
+		}
+		public Optional&lt;Coupon&gt;findByCouponName(String name){
+<span class="fc" id="L30">			Optional&lt;Coupon&gt;coup=couponRepo.findByCouponName(name);</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">			if(coup.isPresent()) {</span>
+<span class="fc" id="L32">				return coup;</span>
+			}else {
+<span class="nc" id="L34">				throw new CouponNotFoundException(&quot;coupon with name &quot;+name+&quot; not found&quot;);</span>
+			}
+			
+		}
+		
+		
+		public Optional&lt;Coupon&gt;findByCouponId(Long id){
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">			if(couponRepo.existsById(id))</span>
+<span class="fc" id="L42">			return couponRepo.findById(id);</span>
+			else
+<span class="nc" id="L44">				throw new CouponNotFoundException(&quot;coupon with id &quot;+id+&quot; not found&quot;);</span>
+		}
+		public void deletebyId(Long id ) {
+<span class="fc" id="L47">			couponRepo.deleteById(id);</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">			if(couponRepo.existsById(id))</span>
+<span class="fc" id="L49">				couponRepo.deleteById(id);</span>
+				else
+<span class="nc" id="L51">					throw new CouponNotFoundException(&quot;coupon with id &quot;+id+&quot; not found&quot;);</span>
+<span class="fc" id="L52">		}</span>
+		public Coupon updateCoupon(Coupon coupon) {
+<span class="fc" id="L54">			return couponRepo.save(coupon);</span>
+		}
+		public Coupon createCoupon(Coupon coupon) {
+<span class="fc" id="L57">			return couponRepo.save(coupon);</span>
+		}
+		
+		public List&lt;Coupon&gt; getApplicableCoupons(Long orderAmount){
+<span class="fc" id="L61">			return couponRepo.findByMinOrderAmountLessThanEqual(orderAmount);</span>
+		}
+		
+		
+		
+		public Long applyCoupon(Long id) {		
+				
+<span class="fc" id="L68">			Coupon coupon1= couponRepo.findById(id).get();</span>
+<span class="fc" id="L69">			return coupon1.getCouponPrice();</span>
+			
+		}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
