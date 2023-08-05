@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pizza.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PizzaHomeStore</a> &gt; <a href="index.source.html" class="el_package">com.pizza.home.model</a> &gt; <span class="el_source">Pizza.java</span></div><h1>Pizza.java</h1><pre class="source lang-java linenums">package com.pizza.home.model;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
+<span class="fc" id="L12">public class Pizza {</span>
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+	
+	private String pizzaName;
+	private String pizzaType;
+	private double pizzaPrice;
+	private String pizzaDesc;
+	private Long pizzaCount;
+	private String imgURL;
+	
+	public String getImgURL() {
+<span class="fc" id="L25">		return imgURL;</span>
+	}
+	public void setImgURL(String imgURL) {
+<span class="fc" id="L28">		this.imgURL = imgURL;</span>
+<span class="fc" id="L29">	}</span>
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = &quot;crust_id&quot;)
+	private Crust crust;
+	
+	public Integer getId() {
+<span class="fc" id="L35">		return id;</span>
+	}
+	public void setId(Integer id) {
+<span class="fc" id="L38">		this.id = id;</span>
+<span class="fc" id="L39">	}</span>
+	
+	public String getPizzaName() {
+<span class="fc" id="L42">		return pizzaName;</span>
+	}
+	public void setPizzaName(String pizzaName) {
+<span class="fc" id="L45">		this.pizzaName = pizzaName;</span>
+<span class="fc" id="L46">	}</span>
+	public String getPizzaType() {
+<span class="fc" id="L48">		return pizzaType;</span>
+	}
+	public void setPizzaType(String pizzaType) {
+<span class="fc" id="L51">		this.pizzaType = pizzaType;</span>
+<span class="fc" id="L52">	}</span>
+	public double getPizzaPrice() {
+<span class="fc" id="L54">		return pizzaPrice;</span>
+	}
+	public void setPizzaPrice(double pizzaPrice) {
+<span class="fc" id="L57">		this.pizzaPrice = pizzaPrice;</span>
+<span class="fc" id="L58">	}</span>
+	public String getPizzaDesc() {
+<span class="fc" id="L60">		return pizzaDesc;</span>
+	}
+	public void setPizzaDesc(String pizzaDesc) {
+<span class="fc" id="L63">		this.pizzaDesc = pizzaDesc;</span>
+<span class="fc" id="L64">	}</span>
+	public Long getPizzaCount() {
+<span class="fc" id="L66">		return pizzaCount;</span>
+	}
+	public void setPizzaCount(Long pizzaCount) {
+<span class="fc" id="L69">		this.pizzaCount = pizzaCount;</span>
+<span class="fc" id="L70">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PizzaServices.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PizzaHomeStore</a> &gt; <a href="index.source.html" class="el_package">com.pizza.home.services</a> &gt; <span class="el_source">PizzaServices.java</span></div><h1>PizzaServices.java</h1><pre class="source lang-java linenums">package com.pizza.home.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import com.pizza.home.model.Pizza;
+import com.pizza.home.repo.PizzaRepository;
+import com.pizza.home.services.exception.PizzaNotFoundException;
+@Service
+<span class="fc" id="L13">public class PizzaServices {</span>
+	@Autowired
+	private PizzaRepository pizzaRepository;
+	
+	public List&lt;Pizza&gt; getAll() {
+<span class="fc" id="L18">	  return pizzaRepository.findAll();</span>
+	}
+    public Optional&lt;Pizza&gt;findByPizzaName(String name){
+    	
+<span class="fc" id="L22">    	 Optional&lt;Pizza&gt; pizza=pizzaRepository.findByPizzaName(name);</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">    	if(pizza.isPresent()) {</span>
+<span class="fc" id="L24">    		return pizza;</span>
+    	}else {
+<span class="fc" id="L26">    		throw new PizzaNotFoundException(&quot;Pizza with name &quot;+ name+&quot; not Found&quot;);</span>
+    	}
+    	
+    }
+   public void deleteById(Integer id) {
+	   try{
+<span class="fc" id="L32">		   pizzaRepository.deleteById(id);</span>
+<span class="fc" id="L33">	   }catch (Exception e) {</span>
+<span class="fc" id="L34">		   throw new PizzaNotFoundException(&quot;Pizza with Id &quot;+ id +&quot; not Found&quot;);</span>
+<span class="fc" id="L35">	}</span>
+<span class="fc" id="L36">   }</span>
+   public Pizza updatePizza(Pizza pizza) {
+<span class="fc" id="L38">	   Pizza getPizza = pizzaRepository.findById(pizza.getId()).orElseThrow(()-&gt; new PizzaNotFoundException(&quot;Pizza not Found with ID provide&quot;));</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">	   if(getPizza != null) {</span>
+		   
+<span class="fc" id="L41">		 getPizza=pizzaRepository.save(pizza);</span>
+	 }
+<span class="fc" id="L43">	   return getPizza;</span>
+   }
+   
+   public Pizza createPizza(Pizza pizza) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">	   if(pizza.getId()!=null) {</span>
+<span class="fc" id="L48">		   return pizzaRepository.save(pizza);</span>
+	   }else {
+<span class="fc" id="L50">		   throw  new PizzaNotFoundException(&quot;Pizza is null&quot;);</span>
+	   }
+   }
+   public List&lt;Pizza&gt; getAllSortedByPrice() {
+<span class="fc" id="L54">		  return pizzaRepository.findAll(Sort.by(Sort.Direction.ASC,&quot;pizzaPrice&quot;));</span>
+		}
+   public List&lt;Pizza&gt; getAllSortedByOrderCount() {
+<span class="fc" id="L57">		  return pizzaRepository.findAll(Sort.by(Sort.Direction.ASC,&quot;pizzaCount&quot;));</span>
+		}
+   
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

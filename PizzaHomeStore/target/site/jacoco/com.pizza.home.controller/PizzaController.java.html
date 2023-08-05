@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PizzaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PizzaHomeStore</a> &gt; <a href="index.source.html" class="el_package">com.pizza.home.controller</a> &gt; <span class="el_source">PizzaController.java</span></div><h1>PizzaController.java</h1><pre class="source lang-java linenums">package com.pizza.home.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.pizza.home.model.Pizza;
+import com.pizza.home.services.PizzaServices;
+import com.pizza.home.services.exception.PizzaNullException;
+
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;, maxAge = 3600,allowCredentials = &quot;true&quot;,allowedHeaders = &quot;*&quot;)
+@RestController
+@RequestMapping(&quot;/&quot;)
+<span class="fc" id="L28">public class PizzaController {</span>
+	@Autowired
+	private PizzaServices services;
+	@GetMapping(&quot;pizza/all&quot;)
+	ResponseEntity&lt;List&lt;Pizza&gt;&gt;getallPizza(){
+<span class="fc" id="L33">			List&lt;Pizza&gt;pizzas=services.getAll();</span>
+<span class="fc" id="L34">		return new ResponseEntity&lt;List&lt;Pizza&gt;&gt;(pizzas,HttpStatus.OK);</span>
+	}
+	@GetMapping(&quot;pizza/all/orderByPrice&quot;)
+	ResponseEntity&lt;List&lt;Pizza&gt;&gt;getallPizzaOrderByPrice(){
+<span class="fc" id="L38">			List&lt;Pizza&gt;pizzas=services.getAllSortedByPrice();	</span>
+<span class="fc" id="L39">			return new ResponseEntity&lt;List&lt;Pizza&gt;&gt;(pizzas,HttpStatus.OK);	</span>
+	}
+	@GetMapping(&quot;pizza/all/orderByPopularity&quot;)
+	ResponseEntity&lt;List&lt;Pizza&gt;&gt;getallPizzaOrderByPopularity(){	
+<span class="fc" id="L43">			List&lt;Pizza&gt;pizzas=services.getAllSortedByOrderCount();</span>
+<span class="fc" id="L44">			return new ResponseEntity&lt;List&lt;Pizza&gt;&gt;(pizzas,HttpStatus.OK);</span>
+	}
+	@GetMapping(&quot;pizza/{name}&quot;)
+	public ResponseEntity&lt;Optional&lt;Pizza&gt;&gt;getPizzaByName(@PathVariable String  name){	
+<span class="fc" id="L48">			Optional&lt;Pizza&gt;gotPizza=services.findByPizzaName(name);</span>
+<span class="fc" id="L49">			return new ResponseEntity&lt;&gt;(gotPizza,HttpStatus.OK);		</span>
+	}
+	@DeleteMapping(&quot;/pizza/{id}&quot;)
+	public ResponseEntity&lt;?&gt;deletePizza(@PathVariable Integer id){
+<span class="fc" id="L53">			services.deleteById(id);</span>
+<span class="fc" id="L54">		return new ResponseEntity&lt;&gt;(HttpStatus.OK);</span>
+		
+	}
+	@PutMapping(&quot;/pizza/update&quot;)
+	public ResponseEntity&lt;Pizza&gt;updatePizza(@RequestBody Pizza pizza){
+<span class="fc" id="L59">			services.updatePizza(pizza);</span>
+<span class="fc" id="L60">			return new ResponseEntity&lt;Pizza&gt;(HttpStatus.ACCEPTED);</span>
+	}
+   @PostMapping(&quot;pizza/add&quot;)
+   public ResponseEntity&lt;Pizza&gt;addPizza(@RequestBody Pizza pizza){
+<span class="fc" id="L64">			services.createPizza(pizza);</span>
+<span class="fc" id="L65">			return new ResponseEntity&lt;Pizza&gt;(pizza,HttpStatus.CREATED);</span>
+   }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
