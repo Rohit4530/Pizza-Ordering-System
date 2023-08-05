@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+beverages,com.beverages.service,BeveragesService,16,82,4,4,3,17,4,9,0,9
+beverages,com.beverages,BeveragesApplication,5,3,0,0,2,1,1,1,1,1
+beverages,com.beverages.service.exception,BeverageCreateException,4,0,0,0,2,0,1,0,1,0
+beverages,com.beverages.service.exception,BevrageUpdateException,4,0,0,0,2,0,1,0,1,0
+beverages,com.beverages.service.exception,BevrageExceptionHandler,21,3,0,0,3,1,3,1,3,1
+beverages,com.beverages.service.exception,BeverageNotFoundException,0,4,0,0,0,2,0,1,0,1
+beverages,com.beverages.controller,BeveragesController,0,73,0,0,0,14,0,8,0,8
+beverages,com.beverages.entity,Beverages,25,52,0,0,9,23,1,15,1,15
