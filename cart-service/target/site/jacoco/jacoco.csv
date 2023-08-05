@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+cart-service,com.cart.entity,Cart,317,73,56,0,0,11,32,21,4,21
+cart-service,com.cart.service,CartService,6,120,1,13,1,28,1,14,0,8
+cart-service,com.cart,CartServiceApplication,5,3,0,0,2,1,1,1,1,1
+cart-service,com.cart.service.exception,CartExceptionHadler,14,3,0,0,2,1,2,1,2,1
+cart-service,com.cart.service.exception,CartNotFoundException,0,4,0,0,0,2,0,1,0,1
+cart-service,com.cart.service.exception,CannotAddNullCartException,0,4,0,0,0,2,0,1,0,1
+cart-service,com.cart.controller,CartController,0,71,0,0,0,12,0,8,0,8
