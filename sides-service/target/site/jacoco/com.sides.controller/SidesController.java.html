@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SidesController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.sides.controller</a> &gt; <span class="el_source">SidesController.java</span></div><h1>SidesController.java</h1><pre class="source lang-java linenums">package com.sides.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import com.sides.entity.Sides;
+import com.sides.service.SidesService;
+
+@RestController
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;, maxAge = 3600,allowCredentials = &quot;true&quot;,allowedHeaders = &quot;*&quot;)
+@RequestMapping(&quot;/&quot;)
+<span class="fc" id="L27">public class SidesController {</span>
+ 
+	@Autowired
+	private SidesService service;
+	
+	@GetMapping(&quot;sides/all&quot;)
+	ResponseEntity&lt;List&lt;Sides&gt;&gt;getallSides(){	
+<span class="fc" id="L34">			List&lt;Sides&gt;sides=service.getAll();</span>
+<span class="fc" id="L35">		return new ResponseEntity&lt;List&lt;Sides&gt;&gt;(sides,HttpStatus.OK);</span>
+	}
+	@GetMapping(&quot;sides/all/orderbyPrice&quot;)
+	ResponseEntity&lt;List&lt;Sides&gt;&gt;getallSidesOrderbyPrice(){	
+<span class="fc" id="L39">			List&lt;Sides&gt;sides=service.getAllSortedByPrice();</span>
+<span class="fc" id="L40">				return new ResponseEntity&lt;List&lt;Sides&gt;&gt;(sides,HttpStatus.OK);</span>
+	}
+
+	@GetMapping(&quot;sides/all/orderByPopularity&quot;)
+	ResponseEntity&lt;List&lt;Sides&gt;&gt;getallSidesOrderByPopularity(){
+<span class="fc" id="L45">			List&lt;Sides&gt;sides=service.getAllSortedByOrderCount();</span>
+<span class="fc" id="L46">				return new ResponseEntity&lt;List&lt;Sides&gt;&gt;(sides,HttpStatus.OK);</span>
+	}
+	@GetMapping(&quot;sides/{name}&quot;)
+	public ResponseEntity&lt;Optional&lt;Sides&gt;&gt;getSidesByName(@PathVariable String  name){
+<span class="fc" id="L50">			Optional&lt;Sides&gt;gotSides=service.findBySideName(name);</span>
+<span class="fc" id="L51">				return new ResponseEntity&lt;&gt;(gotSides,HttpStatus.OK);</span>
+	}
+	@DeleteMapping(&quot;sides/delete/{id}&quot;)
+	public ResponseEntity&lt;?&gt;deleteSides(@PathVariable(&quot;id&quot;) Long id){
+<span class="fc" id="L55">			service.deletebyId(id);</span>
+<span class="fc" id="L56">		return new ResponseEntity&lt;&gt;(HttpStatus.OK);</span>
+	}
+	@PutMapping(&quot;sides/update&quot;)
+	public ResponseEntity&lt;Sides&gt;updateSides(@RequestBody Sides sides){
+<span class="fc" id="L60">			service.updateSides(sides);</span>
+<span class="fc" id="L61">			return new ResponseEntity&lt;Sides&gt;(sides,HttpStatus.ACCEPTED);</span>
+	}
+   @PostMapping(&quot;sides/add&quot;)
+   public ResponseEntity&lt;Sides&gt;addSides(@RequestBody Sides sides){ 
+<span class="fc" id="L65">			service.createSides(sides);</span>
+<span class="fc" id="L66">			return new ResponseEntity&lt;Sides&gt;(sides,HttpStatus.CREATED);</span>
+    }
+   @GetMapping(&quot;sides/find/{id}&quot;)
+	public ResponseEntity&lt;Optional&lt;Sides&gt;&gt;getSidesById(@PathVariable Long id){
+<span class="fc" id="L70">			Optional&lt;Sides&gt;gotSides=service.findBySideId(id);</span>
+<span class="fc" id="L71">				return new ResponseEntity&lt;&gt;(gotSides,HttpStatus.OK);</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

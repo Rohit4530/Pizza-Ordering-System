@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+demo,com.sides.service,SidesService,6,105,1,7,1,20,1,13,0,10
+demo,com.sides,SidesApplication,5,3,0,0,2,1,1,1,1,1
+demo,com.sides.controller,SidesController,0,86,0,0,0,17,0,9,0,9
+demo,com.sides.entity,Sides,0,77,0,0,0,32,0,16,0,16
+demo,com.sides.service.exception,SidesExceptionHandler,21,3,0,0,3,1,3,1,3,1
+demo,com.sides.service.exception,NullSideException,0,4,0,0,0,2,0,1,0,1
+demo,com.sides.service.exception,SideCannotUpdateException,0,4,0,0,0,2,0,1,0,1
+demo,com.sides.service.exception,SideNotFoundException,0,4,0,0,0,2,0,1,0,1
