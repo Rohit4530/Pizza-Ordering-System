@@ -1,17 +1,75 @@
 # Pizza Ordering System
 
-This repository contains a Spring Boot microservices-based pizza ordering application. The services are organized around core business capabilities such as product catalog, beverages, sides, cart, coupons, and order handling.
+A polished Spring Boot microservices project for a pizza ordering platform, designed to showcase modular architecture, service discovery, gateway-based routing, and domain-driven backend services.
 
-## Project Structure
+## Why this project stands out
 
-- [api-gateway](api-gateway) - Routes requests to the appropriate backend service
-- [service-registry](service-registry) - Eureka service discovery server
-- [PizzaHomeStore](PizzaHomeStore) - Main pizza store service
+- Clean microservice-based structure for independent business capabilities
+- Centralized entry through an API gateway
+- Service discovery powered by Eureka
+- Separate services for pizza, beverages, sides, cart, coupons, and orders
+- Easy to extend into a full production-style e-commerce platform
+
+## Architecture Overview
+
+```mermaid
+flowchart LR
+    U[Customer] --> G[API Gateway :9900]
+    G --> H[PIZZA-HOME :8080]
+    G --> B[BEVERAGES :8181]
+    G --> S[SIDES :9090]
+    G --> C[CART :9001]
+    G --> P[COUPON :8282]
+    G --> O[ORDER :7878]
+    H --> E[Eureka Registry :8761]
+    B --> E
+    S --> E
+    C --> E
+    P --> E
+    O --> E
+```
+
+## Request Flow
+
+```mermaid
+sequenceDiagram
+    participant Client as Client
+    participant Gateway as API Gateway
+    participant Registry as Eureka
+    participant Service as Microservice
+    participant DB as MySQL
+
+    Client->>Gateway: Send request
+    Gateway->>Registry: Discover service instance
+    Registry-->>Gateway: Return service address
+    Gateway->>Service: Forward request
+    Service->>DB: Read / write data
+    DB-->>Service: Response
+    Service-->>Gateway: Processed result
+    Gateway-->>Client: Final response
+```
+
+## Service Modules
+
+- [api-gateway](api-gateway) - Routes incoming requests to the correct backend service
+- [service-registry](service-registry) - Eureka-based service discovery server
+- [PizzaHomeStore](PizzaHomeStore) - Core pizza store service
 - [beverages](beverages) - Beverage catalog and management
 - [sides-service](sides-service) - Side dish service
 - [cart-service](cart-service) - Shopping cart operations
 - [coupon](coupon) - Coupon and discount handling
 - [order-service 4](order-service%204) - Order placement and processing
+
+## Technology Stack
+
+- Java 17+
+- Spring Boot
+- Spring Cloud Gateway
+- Spring Cloud Netflix Eureka
+- Spring Data JPA
+- MySQL
+- Maven
+- RESTful APIs
 
 ## Service Ports
 
@@ -29,9 +87,9 @@ This repository contains a Spring Boot microservices-based pizza ordering applic
 - Java 17 or later
 - Maven
 - MySQL running locally
-- Appropriate databases created for the services (for example, `testdb` and `orderdb` as used in the configuration)
+- Required databases created before running the services (for example, `testdb` and `orderdb`)
 
-## Running the Application
+## Quick Start
 
 1. Start the service registry:
    - `cd service-registry`
@@ -49,10 +107,10 @@ This repository contains a Spring Boot microservices-based pizza ordering applic
    - `cd coupon && ./mvnw spring-boot:run`
    - `cd "order-service 4" && ./mvnw spring-boot:run`
 
-4. Access the application through the API gateway at:
+4. Open the application through the gateway at:
    - `http://localhost:9900`
 
 ## Notes
 
-- The root folder also contains a frontend archive named `FrontEnd.zip`.
-- If your local MySQL credentials differ from the defaults in the service configuration files, update them in the relevant `application.properties` files before running the services.
+- A frontend archive is also present at the repository root as `FrontEnd.zip`.
+- If your local MySQL credentials differ from the defaults, update the relevant configuration files before launching the services.
