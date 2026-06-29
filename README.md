@@ -15,40 +15,50 @@ A polished full-stack pizza ordering platform built with Spring Boot microservic
 
 ```mermaid
 flowchart LR
-    U[Customer] --> F[Frontend UI]
-    F --> G[API Gateway :9900]
-    G --> H[PIZZA-HOME :8080]
-    G --> B[BEVERAGES :8181]
-    G --> S[SIDES :9090]
-    G --> C[CART :9001]
-    G --> P[COUPON :8282]
-    G --> O[ORDER :7878]
-    H --> E[Eureka Registry :8761]
+    U([Customer]):::user --> F[Frontend UI]:::frontend
+    F --> G[API Gateway<br/>:9900]:::gateway
+    G --> H[PIZZA-HOME<br/>:8080]:::service
+    G --> B[BEVERAGES<br/>:8181]:::service
+    G --> S[SIDES<br/>:9090]:::service
+    G --> C[CART<br/>:9001]:::service
+    G --> P[COUPON<br/>:8282]:::service
+    G --> O[ORDER<br/>:7878]:::service
+    H --> E[Eureka Registry<br/>:8761]:::registry
     B --> E
     S --> E
     C --> E
     P --> E
     O --> E
+
+    classDef user fill:#ffefcc,stroke:#ff9800,stroke-width:2px,color:#7a3d00;
+    classDef frontend fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#0d47a1;
+    classDef gateway fill:#ede7f6,stroke:#5e35b1,stroke-width:2px,color:#311b92;
+    classDef service fill:#e8f5e9,stroke:#43a047,stroke-width:2px,color:#1b5e20;
+    classDef registry fill:#fce4ec,stroke:#d81b60,stroke-width:2px,color:#880e4f;
 ```
 
 ## Request Flow
 
 ```mermaid
 sequenceDiagram
+    autonumber
     participant Client as Client
+    participant Frontend as Frontend UI
     participant Gateway as API Gateway
     participant Registry as Eureka
     participant Service as Microservice
     participant DB as MySQL
 
-    Client->>Gateway: Send request
+    Client->>Frontend: Browse pizzas & place order
+    Frontend->>Gateway: Send request
     Gateway->>Registry: Discover service instance
     Registry-->>Gateway: Return service address
     Gateway->>Service: Forward request
     Service->>DB: Read / write data
     DB-->>Service: Response
     Service-->>Gateway: Processed result
-    Gateway-->>Client: Final response
+    Gateway-->>Frontend: Final response
+    Frontend-->>Client: Display result
 ```
 
 ## Service Modules
