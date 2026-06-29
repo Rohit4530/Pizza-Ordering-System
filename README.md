@@ -1,6 +1,6 @@
 # Pizza Ordering System
 
-A polished Spring Boot microservices project for a pizza ordering platform, designed to showcase modular architecture, service discovery, gateway-based routing, and domain-driven backend services.
+A polished full-stack pizza ordering platform built with Spring Boot microservices on the backend and a frontend experience for customers to browse products, manage cart, apply coupons, and place orders.
 
 ## Why this project stands out
 
@@ -8,13 +8,15 @@ A polished Spring Boot microservices project for a pizza ordering platform, desi
 - Centralized entry through an API gateway
 - Service discovery powered by Eureka
 - Separate services for pizza, beverages, sides, cart, coupons, and orders
+- A frontend layer that provides a complete customer-facing experience
 - Easy to extend into a full production-style e-commerce platform
 
 ## Architecture Overview
 
 ```mermaid
 flowchart LR
-    U[Customer] --> G[API Gateway :9900]
+    U[Customer] --> F[Frontend UI]
+    F --> G[API Gateway :9900]
     G --> H[PIZZA-HOME :8080]
     G --> B[BEVERAGES :8181]
     G --> S[SIDES :9090]
@@ -70,6 +72,7 @@ sequenceDiagram
 - MySQL
 - Maven
 - RESTful APIs
+- Frontend UI for customer interaction
 
 ## Service Ports
 
@@ -107,8 +110,10 @@ sequenceDiagram
    - `cd coupon && ./mvnw spring-boot:run`
    - `cd "order-service 4" && ./mvnw spring-boot:run`
 
-4. Open the application through the gateway at:
+4. Launch the frontend UI and connect it to the gateway at:
    - `http://localhost:9900`
+
+5. Use the frontend to browse pizzas, add items to the cart, apply coupons, and place orders.
 
 ## Notes
 
